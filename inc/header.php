@@ -1,5 +1,22 @@
 <?php
-// Set $page_title before including this file.
+// ===========================================================================
+// Included first by every page:
+//   $page_title = '...';   (optional, before this include)
+//   include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/header.php';
+// Loads the database settings, starts the session, and opens the page.
+// ===========================================================================
+
+require_once $_SERVER['DOCUMENT_ROOT'] . '/inc/config.php';
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Hold the page in memory until it is finished, so a page can still redirect
+// after this header has been included. Before redirecting, a page calls
+// ob_end_clean() to drop what was held.
+ob_start();
+
 if (!isset($page_title)) {
     $page_title = 'H.O.P.E.';
 }

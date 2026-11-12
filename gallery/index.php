@@ -6,6 +6,10 @@
 // button until the video is made. No database.
 // ===========================================================================
 
+$page_title = 'Video Gallery';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/header.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/nav.php';
+
 // Where the media lives (full addresses, trailing slash).
 $videos_url  = 'https://not.inouter.space/sharethis/videos/';
 $buttons_url = 'https://not.inouter.space/sharethis/buttons/';   // savethe<cause>.png = video cover
@@ -46,8 +50,5 @@ foreach ($found as $cause) {
     ];
 }
 
-$page_title = 'Video Gallery';
-include $_SERVER['DOCUMENT_ROOT'] . '/inc/header.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/inc/nav.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/gallery/inc_gallery.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/inc/footer.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/gallery/inc_gallery.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/footer.php';

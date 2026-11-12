@@ -12,8 +12,13 @@ $merch_url = '';
 // Which cause: letters, numbers and dashes only, lower case.
 $save = strtolower(preg_replace('/[^A-Za-z0-9-]/', '', (string) ($_GET['save'] ?? '')));
 
+$page_title = 'Save the ' . ucfirst($save);
+include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/header.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/nav.php';
+
 // No cause given, or not approved (no button): back to the gallery.
 if ($save === '' || !is_file($_SERVER['DOCUMENT_ROOT'] . '/sharethis/buttons/savethe' . $save . '.png')) {
+    ob_end_clean();
     header('Location: https://not.inouter.space/gallery/');
     exit();
 }
@@ -27,8 +32,6 @@ $file_base   = 'savethe' . $save;
 $singular = substr($save, -1) === 's' ? substr($save, 0, -1) : $save;
 $plural   = $singular . 's';
 $forms    = [$singular, $plural, 'the ' . $singular, 'the ' . $plural];
-
-require $_SERVER['DOCUMENT_ROOT'] . '/inc/config.php';
 
 // Full addresses for this cause.
 $page_url   = 'https://not.inouter.space/causes/?save=' . $save;
@@ -118,8 +121,5 @@ try {
 
 $total = count($names) + $anonymous;
 
-$page_title = $cause_title;
-include $_SERVER['DOCUMENT_ROOT'] . '/inc/header.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/inc/nav.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/causes/inc_cause.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/inc/footer.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/causes/inc_cause.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/footer.php';

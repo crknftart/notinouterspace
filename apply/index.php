@@ -1,5 +1,7 @@
 <?php
-session_start();
+$page_title = 'Join H.O.P.E.';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/header.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/nav.php';
 
 // After a successful save, /proc/process_membership.php stores the applicant's
 // name in the session and sends them back here. If it is there, show the thanks
@@ -17,9 +19,6 @@ foreach (glob($_SERVER['DOCUMENT_ROOT'] . '/sharethis/buttons/savethe*.png') ?: 
     $approved_causes[] = ucfirst(substr(basename($path, '.png'), strlen('savethe')));
 }
 
-$page_title = $thanks_name !== '' ? 'Thank You' : 'Join H.O.P.E.';
-include $_SERVER['DOCUMENT_ROOT'] . '/inc/header.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/inc/nav.php';
 ?>
 <?php if ($thanks_name !== ''): ?>
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/apply/thanks.php'; ?>
@@ -185,4 +184,4 @@ include $_SERVER['DOCUMENT_ROOT'] . '/inc/nav.php';
     </form>
 </div>
 <?php endif; ?>
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/inc/footer.php'; ?>
+<?php include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/footer.php'; ?>

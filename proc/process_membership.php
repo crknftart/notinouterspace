@@ -1,13 +1,12 @@
 <?php
 declare(strict_types=1);
 
-// Database credentials live in /inc/config.php (not in the repo).
-require $_SERVER['DOCUMENT_ROOT'] . '/inc/config.php';
-
 error_reporting(E_ALL);
 ini_set('display_errors', '1'); // set to '0' once the form is working
 
-session_start();
+$page_title = 'Membership';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/header.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/nav.php';
 
 // ---------------------------------------------------------------------------
 // Addresses (full URLs)
@@ -46,6 +45,7 @@ $errors = [];
 
 // Anyone arriving here without submitting the form goes back to the form.
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    ob_end_clean();
     header('Location: ' . $form_url);
     exit();
 }
@@ -165,6 +165,7 @@ if ($state === '') {
 
         // Redirect so refreshing the thank-you page cannot save a second copy.
         $_SESSION['hope_thanks_name'] = $full_name;
+        ob_end_clean();
         header('Location: ' . $thanks_url, true, 303);
         exit();
 
@@ -179,9 +180,6 @@ if ($state === '') {
 // ---------------------------------------------------------------------------
 // Page (only reached when the answers need fixing or the save failed)
 // ---------------------------------------------------------------------------
-$page_title = $state === 'invalid' ? 'Please Check Your Answers' : 'Something Went Wrong';
-include $_SERVER['DOCUMENT_ROOT'] . '/inc/header.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/inc/nav.php';
 ?>
     <div class="card">
 <?php if ($state === 'invalid'): ?>
@@ -197,4 +195,4 @@ include $_SERVER['DOCUMENT_ROOT'] . '/inc/nav.php';
 <?php endif; ?>
         <a class="back" href="https://not.inouter.space/apply/">&larr; Return to Form</a>
     </div>
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/inc/footer.php'; ?>
+<?php include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/footer.php'; ?>
