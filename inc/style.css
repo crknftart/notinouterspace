@@ -213,3 +213,22 @@ select:focus {
         grid-template-columns: 1fr;
     }
 }
+
+/* ---- Video gallery (gallery/) ---- */
+.page { max-width: 1300px; margin: 0 auto; background: var(--card-bg); padding: 40px; border-radius: var(--radius); box-shadow: 0 10px 25px rgba(0,0,0,0.05); color: var(--text-color); }
+.page-header { border-bottom: 2px solid var(--border-color); padding-bottom: 16px; margin-bottom: 20px; }
+.page h1 { font-size: 2rem; color: var(--primary-color); letter-spacing: -0.5px; }
+.page a:hover { color: var(--primary-hover); text-decoration: underline; }
+.links { display: flex; gap: 14px; flex-wrap: wrap; font-size: 0.9rem; }
+.links button { background: none; border: none; color: var(--primary-color); font: inherit; font-weight: 600; cursor: pointer; padding: 0; }
+.links button:hover { color: var(--primary-hover); text-decoration: underline; }
+.grid { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.grid li { border: 1px solid var(--border-color); border-radius: var(--radius); padding: 10px; text-align: center; }
+.grid video { width: 100%; display: block; border-radius: 6px; background: #000; aspect-ratio: 16 / 9; }
+.grid h2 { font-size: 1rem; margin: 8px 0 4px; overflow-wrap: anywhere; }
+.grid .links { justify-content: center; }
+.empty { color: var(--text-muted); padding: 20px 0; }
+.note { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--text-color); color: #fff; padding: 8px 16px; border-radius: var(--radius); font-size: 0.9rem; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+.note.show { opacity: 1; }
+@media (max-width: 1000px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 500px)  { .page { padding: 24px; } .grid { grid-template-columns: 1fr; } }
