@@ -2,11 +2,11 @@
 // ===========================================================================
 // Included first by every page:
 //   $page_title = '...';   (optional, before this include)
-//   include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/header.php';
+//   include_once '/home/artmagproject/not.inouter.space/inc/header.php';
 // Loads the database settings, starts the session, and opens the page.
 // ===========================================================================
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/inc/config.php';
+require_once '/home/artmagproject/not.inouter.space/inc/config.php';
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();

@@ -13,11 +13,11 @@ $merch_url = '';
 $save = strtolower(preg_replace('/[^A-Za-z0-9-]/', '', (string) ($_GET['save'] ?? '')));
 
 $page_title = 'Save the ' . ucfirst($save);
-include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/header.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/nav.php';
+include_once '/home/artmagproject/not.inouter.space/inc/header.php';
+include_once '/home/artmagproject/not.inouter.space/inc/nav.php';
 
 // No cause given, or not approved (no button): back to the gallery.
-if ($save === '' || !is_file($_SERVER['DOCUMENT_ROOT'] . '/sharethis/buttons/savethe' . $save . '.png')) {
+if ($save === '' || !is_file('/home/artmagproject/not.inouter.space/sharethis/buttons/savethe' . $save . '.png')) {
     ob_end_clean();
     header('Location: https://not.inouter.space/gallery/');
     exit();
@@ -38,9 +38,9 @@ $page_url   = 'https://not.inouter.space/causes/?save=' . $save;
 $video_url  = 'https://not.inouter.space/sharethis/videos/' . $file_base . '.mp4';
 $emblem_url = 'https://not.inouter.space/sharethis/buttons/' . $file_base;   // + .png / .jpg / .svg
 // Which files exist yet.
-$has_video = is_file($_SERVER['DOCUMENT_ROOT'] . '/sharethis/videos/' . $file_base . '.mp4');
-$has_jpg   = is_file($_SERVER['DOCUMENT_ROOT'] . '/sharethis/buttons/' . $file_base . '.jpg');
-$has_svg   = is_file($_SERVER['DOCUMENT_ROOT'] . '/sharethis/buttons/' . $file_base . '.svg');
+$has_video = is_file('/home/artmagproject/not.inouter.space/sharethis/videos/' . $file_base . '.mp4');
+$has_jpg   = is_file('/home/artmagproject/not.inouter.space/sharethis/buttons/' . $file_base . '.jpg');
+$has_svg   = is_file('/home/artmagproject/not.inouter.space/sharethis/buttons/' . $file_base . '.svg');
 
 $embed_code = '<video src="' . $video_url . '" poster="' . $emblem_url . '.png" controls width="640"></video>';
 
@@ -121,5 +121,5 @@ try {
 
 $total = count($names) + $anonymous;
 
-include_once $_SERVER['DOCUMENT_ROOT'] . '/content/cause.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/footer.php';
+include_once '/home/artmagproject/not.inouter.space/content/cause.php';
+include_once '/home/artmagproject/not.inouter.space/inc/footer.php';

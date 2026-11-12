@@ -4,11 +4,11 @@
 // ===========================================================================
 
 $page_title = 'Members';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/header.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/nav.php';
+include_once '/home/artmagproject/not.inouter.space/inc/header.php';
+include_once '/home/artmagproject/not.inouter.space/inc/nav.php';
 
 // Approved causes have a button here: savethe<cause>.png
-$buttons_dir = $_SERVER['DOCUMENT_ROOT'] . '/sharethis/buttons/';
+$buttons_dir = '/home/artmagproject/not.inouter.space/sharethis/buttons/';
 
 $members    = [];
 $data_error = false;
@@ -94,4 +94,4 @@ try {
     </ul>
 <?php endif; ?>
 </div>
-<?php include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/footer.php'; ?>
+<?php include_once '/home/artmagproject/not.inouter.space/inc/footer.php'; ?>

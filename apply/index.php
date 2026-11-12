@@ -1,7 +1,7 @@
 <?php
 $page_title = 'Join H.O.P.E.';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/header.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/nav.php';
+include_once '/home/artmagproject/not.inouter.space/inc/header.php';
+include_once '/home/artmagproject/not.inouter.space/inc/nav.php';
 
 // After a successful save, /proc/process_membership.php stores the applicant's
 // name in the session and sends them back here. If it is there, show the thanks
@@ -20,17 +20,17 @@ if (isset($_SESSION['hope_thanks_name']) && is_string($_SESSION['hope_thanks_nam
 // Approved causes (each has a button in /sharethis/buttons/), offered as
 // suggestions on question 1. People can still type a new one.
 $approved_causes = [];
-foreach (glob($_SERVER['DOCUMENT_ROOT'] . '/sharethis/buttons/savethe*.png') ?: [] as $path) {
+foreach (glob('/home/artmagproject/not.inouter.space/sharethis/buttons/savethe*.png') ?: [] as $path) {
     $approved_causes[] = ucfirst(substr(basename($path, '.png'), strlen('savethe')));
 }
 
 ?>
 <?php if ($thanks_name !== ''): ?>
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/content/thanks.php'; ?>
+<?php include '/home/artmagproject/not.inouter.space/content/thanks.php'; ?>
 <?php else: ?>
 <div id="formResult">
 <?php if ($form_errors): ?>
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/content/form_errors.php'; ?>
+<?php include '/home/artmagproject/not.inouter.space/content/form_errors.php'; ?>
 <?php endif; ?>
 </div>
 <div class="form-container">
@@ -195,4 +195,4 @@ foreach (glob($_SERVER['DOCUMENT_ROOT'] . '/sharethis/buttons/savethe*.png') ?: 
 </div>
 <script src="https://not.inouter.space/inc/form.js"></script>
 <?php endif; ?>
-<?php include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/footer.php'; ?>
+<?php include_once '/home/artmagproject/not.inouter.space/inc/footer.php'; ?>

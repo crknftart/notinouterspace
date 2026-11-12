@@ -7,8 +7,8 @@
 // ===========================================================================
 
 $page_title = 'Video Gallery';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/header.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/nav.php';
+include_once '/home/artmagproject/not.inouter.space/inc/header.php';
+include_once '/home/artmagproject/not.inouter.space/inc/nav.php';
 
 // Where the media lives (full addresses, trailing slash).
 $videos_url  = 'https://not.inouter.space/sharethis/videos/';
@@ -18,8 +18,8 @@ $buttons_url = 'https://not.inouter.space/sharethis/buttons/';   // savethe<caus
 $cause_pages_url = 'https://not.inouter.space/causes/?save=';
 
 // The folders as the server sees them.
-$buttons_dir = $_SERVER['DOCUMENT_ROOT'] . '/sharethis/buttons/';
-$videos_dir  = $_SERVER['DOCUMENT_ROOT'] . '/sharethis/videos/';
+$buttons_dir = '/home/artmagproject/not.inouter.space/sharethis/buttons/';
+$videos_dir  = '/home/artmagproject/not.inouter.space/sharethis/videos/';
 
 // Used only when the folder above can't be read. List the causes by hand here.
 $manual_causes = ['bees', 'birds', 'gorrilla', 'oceans', 'bats', 'music'];
@@ -50,5 +50,5 @@ foreach ($found as $cause) {
     ];
 }
 
-include_once $_SERVER['DOCUMENT_ROOT'] . '/content/gallery.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/footer.php';
+include_once '/home/artmagproject/not.inouter.space/content/gallery.php';
+include_once '/home/artmagproject/not.inouter.space/inc/footer.php';

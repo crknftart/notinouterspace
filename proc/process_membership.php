@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1'); // set to '0' once the form is working
 
 $page_title = 'Membership';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/header.php';
+include_once '/home/artmagproject/not.inouter.space/inc/header.php';
 
 // ---------------------------------------------------------------------------
 // Addresses (full URLs)
@@ -168,7 +168,7 @@ if ($state === '') {
         ob_end_clean();
         if ($is_fetch) {
             $thanks_name = $full_name;
-            include $_SERVER['DOCUMENT_ROOT'] . '/content/thanks.php';
+            include '/home/artmagproject/not.inouter.space/content/thanks.php';
             exit();
         }
         $_SESSION['hope_thanks_name'] = $full_name;
@@ -190,7 +190,7 @@ ob_end_clean();
 if ($is_fetch) {
     http_response_code($state === 'failed' ? 500 : 400);
     $form_errors = $errors;
-    include $_SERVER['DOCUMENT_ROOT'] . '/content/form_errors.php';
+    include '/home/artmagproject/not.inouter.space/content/form_errors.php';
     exit();
 }
 $_SESSION['hope_form_errors'] = $errors;
