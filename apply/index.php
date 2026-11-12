@@ -10,6 +10,13 @@ if (isset($_SESSION['hope_thanks_name']) && is_string($_SESSION['hope_thanks_nam
     unset($_SESSION['hope_thanks_name']);
 }
 
+// Approved causes (each has a button in /sharethis/buttons/), offered as
+// suggestions on question 1. People can still type a new one.
+$approved_causes = [];
+foreach (glob($_SERVER['DOCUMENT_ROOT'] . '/sharethis/buttons/savethe*.png') ?: [] as $path) {
+    $approved_causes[] = ucfirst(substr(basename($path, '.png'), strlen('savethe')));
+}
+
 $page_title = $thanks_name !== '' ? 'Thank You' : 'Join H.O.P.E.';
 include $_SERVER['DOCUMENT_ROOT'] . '/inc/header.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/inc/nav.php';
@@ -53,7 +60,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/inc/nav.php';
 
             <div class="form-group">
                 <label for="q1">1. What are you saving?</label>
-                <input type="text" id="q1" name="q1_saving" required placeholder="Enter your response...">
+                <input type="text" id="q1" name="q1_saving" required placeholder="Start typing to see current causes..." list="approved-causes" autocomplete="off">
+                <datalist id="approved-causes">
+<?php foreach ($approved_causes as $cause): ?>
+                    <option value="<?php echo htmlspecialchars($cause, ENT_QUOTES, 'UTF-8'); ?>">
+<?php endforeach; ?>
+                </datalist>
             </div>
 
             <div class="form-group">

@@ -4,19 +4,27 @@
     </header>
 
 <?php if (!$videos): ?>
-    <p class="empty">No videos yet.</p>
+    <p class="empty">No causes yet.</p>
 <?php else: ?>
     <ul class="grid">
 <?php foreach ($videos as $video): ?>
         <li>
+<?php if ($video['has_video']): ?>
             <video controls preload="none" poster="<?php echo htmlspecialchars($video['poster'], ENT_QUOTES, 'UTF-8'); ?>">
                 <source src="<?php echo htmlspecialchars($video['video'], ENT_QUOTES, 'UTF-8'); ?>" type="video/mp4">
             </video>
+<?php else: ?>
+            <a href="<?php echo htmlspecialchars($video['page'], ENT_QUOTES, 'UTF-8'); ?>"><img class="button-only" src="<?php echo htmlspecialchars($video['poster'], ENT_QUOTES, 'UTF-8'); ?>" alt="<?php echo htmlspecialchars($video['title'], ENT_QUOTES, 'UTF-8'); ?> button"></a>
+<?php endif; ?>
             <h2><?php echo htmlspecialchars($video['title'], ENT_QUOTES, 'UTF-8'); ?></h2>
             <div class="links">
                 <a href="<?php echo htmlspecialchars($video['page'], ENT_QUOTES, 'UTF-8'); ?>">Cause Page</a>
                 <button type="button" class="share" data-title="<?php echo htmlspecialchars($video['title'], ENT_QUOTES, 'UTF-8'); ?>" data-url="<?php echo htmlspecialchars($video['page'], ENT_QUOTES, 'UTF-8'); ?>">Share</button>
+<?php if ($video['has_video']): ?>
                 <a href="<?php echo htmlspecialchars($video['video'], ENT_QUOTES, 'UTF-8'); ?>" download>Download</a>
+<?php else: ?>
+                <span class="soon">Video in production</span>
+<?php endif; ?>
             </div>
         </li>
 <?php endforeach; ?>

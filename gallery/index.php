@@ -1,19 +1,21 @@
 <?php
 // ===========================================================================
 // H.O.P.E. VIDEO GALLERY
-// Shows every video in /sharethis/videos/ named savethe<cause>.mp4. Upload a
-// new video with that naming and it appears here on its own. No database.
+// Shows every approved cause: each button in /sharethis/buttons/ named
+// savethe<cause>.png. Causes with a video show the video; the rest show the
+// button until the video is made. No database.
 // ===========================================================================
 
 // Where the media lives (full addresses, trailing slash).
 $videos_url  = 'https://not.inouter.space/sharethis/videos/';
 $buttons_url = 'https://not.inouter.space/sharethis/buttons/';   // savethe<cause>.png = video cover
 
-// Where the cause pages live (full address, trailing slash). CONFIRM this folder.
-$cause_pages_url = 'https://not.inouter.space/content/';
+// Cause pages: https://not.inouter.space/causes/?save=<cause>
+$cause_pages_url = 'https://not.inouter.space/causes/?save=';
 
-// The videos folder as the server sees it, used to find the videos.
-$videos_dir = $_SERVER['DOCUMENT_ROOT'] . '/sharethis/videos/';
+// The folders as the server sees them.
+$buttons_dir = $_SERVER['DOCUMENT_ROOT'] . '/sharethis/buttons/';
+$videos_dir  = $_SERVER['DOCUMENT_ROOT'] . '/sharethis/videos/';
 
 // Used only when the folder above can't be read. List the causes by hand here.
 $manual_causes = ['bees', 'birds', 'gorrilla', 'oceans', 'bats', 'music'];
@@ -21,8 +23,8 @@ $manual_causes = ['bees', 'birds', 'gorrilla', 'oceans', 'bats', 'music'];
 // ===========================================================================
 
 $found = [];
-foreach (glob($videos_dir . 'savethe*.mp4') ?: [] as $path) {
-    $found[] = substr(basename($path, '.mp4'), strlen('savethe'));
+foreach (glob($buttons_dir . 'savethe*.png') ?: [] as $path) {
+    $found[] = substr(basename($path, '.png'), strlen('savethe'));
 }
 if (!$found) {
     $found = $manual_causes;
@@ -37,9 +39,10 @@ foreach ($found as $cause) {
     $base = 'savethe' . $cause;
     $videos[] = [
         'title'  => 'Save the ' . ucfirst($cause),
+        'has_video' => is_file($videos_dir . $base . '.mp4'),
         'video'  => $videos_url . $base . '.mp4',
         'poster' => $buttons_url . $base . '.png',
-        'page'   => $cause_pages_url . $base . '.php',
+        'page'   => $cause_pages_url . $cause,
     ];
 }
 
