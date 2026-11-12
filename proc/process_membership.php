@@ -13,7 +13,7 @@ session_start();
 // Addresses (full URLs)
 // ---------------------------------------------------------------------------
 $form_url    = 'https://not.inouter.space/apply/index.php';
-$thanks_url  = 'https://not.inouter.space/apply/thanks.php';
+$thanks_url  = 'https://not.inouter.space/apply/';
 
 // Longest value accepted for name, email and question 1.
 // Match this to the VARCHAR sizes in membership_submissions.
