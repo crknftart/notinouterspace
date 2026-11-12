@@ -50,5 +50,5 @@ foreach ($found as $cause) {
     ];
 }
 
-include_once $_SERVER['DOCUMENT_ROOT'] . '/gallery/inc_gallery.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/content/gallery.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/footer.php';

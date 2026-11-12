@@ -7,6 +7,11 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/nav.php';
 // name in the session and sends them back here. If it is there, show the thanks
 // instead of the form. It is removed after one view, so a refresh shows the form.
 $thanks_name = '';
+$form_errors = [];
+if (isset($_SESSION['hope_form_errors']) && is_array($_SESSION['hope_form_errors'])) {
+    $form_errors = $_SESSION['hope_form_errors'];
+    unset($_SESSION['hope_form_errors']);
+}
 if (isset($_SESSION['hope_thanks_name']) && is_string($_SESSION['hope_thanks_name'])) {
     $thanks_name = $_SESSION['hope_thanks_name'];
     unset($_SESSION['hope_thanks_name']);
@@ -21,15 +26,20 @@ foreach (glob($_SERVER['DOCUMENT_ROOT'] . '/sharethis/buttons/savethe*.png') ?: 
 
 ?>
 <?php if ($thanks_name !== ''): ?>
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/apply/thanks.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/content/thanks.php'; ?>
 <?php else: ?>
+<div id="formResult">
+<?php if ($form_errors): ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/content/form_errors.php'; ?>
+<?php endif; ?>
+</div>
 <div class="form-container">
     <header class="form-header">
         <h1>H.O.P.E. Membership Form</h1>
         <p>Humans on Planet Earth — Save One Thing</p>
     </header>
 
-    <form method="post" action="https://not.inouter.space/proc/process_membership.php">
+    <form method="post" action="https://not.inouter.space/proc/process_membership.php" id="membershipForm">
         
         <!-- SECTION 0: CONTACT INFORMATION -->
         <div class="form-section">
@@ -183,5 +193,6 @@ foreach (glob($_SERVER['DOCUMENT_ROOT'] . '/sharethis/buttons/savethe*.png') ?: 
         <button type="submit" class="submit-btn">Submit Application</button>
     </form>
 </div>
+<script src="https://not.inouter.space/inc/form.js"></script>
 <?php endif; ?>
 <?php include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/footer.php'; ?>

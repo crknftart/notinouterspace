@@ -6,13 +6,15 @@ ini_set('display_errors', '1'); // set to '0' once the form is working
 
 $page_title = 'Membership';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/header.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/nav.php';
 
 // ---------------------------------------------------------------------------
 // Addresses (full URLs)
 // ---------------------------------------------------------------------------
 $form_url    = 'https://not.inouter.space/apply/index.php';
 $thanks_url  = 'https://not.inouter.space/apply/';
+
+// Sent by /inc/form.js. When present, answer with the result instead of redirecting.
+$is_fetch = ($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '') === 'fetch';
 
 // Longest value accepted for name, email and question 1.
 // Match this to the VARCHAR sizes in membership_submissions.
@@ -37,7 +39,7 @@ $need_hope_options = [
 ];
 
 // ---------------------------------------------------------------------------
-// What the page will show. The HTML at the bottom reads these.
+// Result of this submission. The form page shows the outcome:
 //   'invalid' = answers need fixing,  'failed' = database error
 // ---------------------------------------------------------------------------
 $state  = '';
@@ -118,7 +120,6 @@ if ($state === '') {
 
     if ($errors !== []) {
         $state = 'invalid';
-        http_response_code(400);
     }
 }
 
@@ -164,8 +165,13 @@ if ($state === '') {
         $stmt->execute();
 
         // Redirect so refreshing the thank-you page cannot save a second copy.
-        $_SESSION['hope_thanks_name'] = $full_name;
         ob_end_clean();
+        if ($is_fetch) {
+            $thanks_name = $full_name;
+            include $_SERVER['DOCUMENT_ROOT'] . '/content/thanks.php';
+            exit();
+        }
+        $_SESSION['hope_thanks_name'] = $full_name;
         header('Location: ' . $thanks_url, true, 303);
         exit();
 
@@ -173,26 +179,20 @@ if ($state === '') {
         error_log('Membership form error: ' . get_class($ex) . ': ' . $ex->getMessage()
             . ' in ' . $ex->getFile() . ':' . $ex->getLine());
         $state = 'failed';
-        http_response_code(500);
+        $errors[] = 'Sorry, an unexpected error occurred while saving your response. Please try again later.';
     }
 }
 
 // ---------------------------------------------------------------------------
-// Page (only reached when the answers need fixing or the save failed)
+// Answers need fixing, or the save failed: back to the form, which shows why.
 // ---------------------------------------------------------------------------
-?>
-    <div class="card">
-<?php if ($state === 'invalid'): ?>
-        <h1>Please Check Your Answers</h1>
-        <ul>
-<?php foreach ($errors as $message): ?>
-            <li><?php echo htmlspecialchars($message, ENT_QUOTES, 'UTF-8'); ?></li>
-<?php endforeach; ?>
-        </ul>
-<?php else: ?>
-        <h1>Something Went Wrong</h1>
-        <p>Sorry, an unexpected error occurred while saving your response. Please try again later.</p>
-<?php endif; ?>
-        <a class="back" href="https://not.inouter.space/apply/">&larr; Return to Form</a>
-    </div>
-<?php include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/footer.php'; ?>
+ob_end_clean();
+if ($is_fetch) {
+    http_response_code($state === 'failed' ? 500 : 400);
+    $form_errors = $errors;
+    include $_SERVER['DOCUMENT_ROOT'] . '/content/form_errors.php';
+    exit();
+}
+$_SESSION['hope_form_errors'] = $errors;
+header('Location: ' . $thanks_url, true, 303);
+exit();

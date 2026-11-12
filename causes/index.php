@@ -121,5 +121,5 @@ try {
 
 $total = count($names) + $anonymous;
 
-include_once $_SERVER['DOCUMENT_ROOT'] . '/causes/inc_cause.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/content/cause.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/footer.php';
