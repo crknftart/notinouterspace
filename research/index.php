@@ -8,7 +8,7 @@ $list_dir = '/home/artmagproject/not.inouter.space/research/';
 $list_url = 'https://not.inouter.space/research/';
 $sort_by  = 'name';   // 'name' = A to Z, 'date' = newest first
 
-include_once '/home/artmagproject/not.inouter.space/inc/filelist.php';
+include_once '/home/artmagproject/not.inouter.space/proc/filelist.php';
 ?>
 <div class="page filelist">
     <header class="page-header">
