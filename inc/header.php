@@ -30,4 +30,4 @@ if (!isset($page_title)) {
     <link rel="stylesheet" href="https://not.inouter.space/inc/style.css">
 </head>
 <body>
-    <img class="site-logo" src="https://not.inouter.space/mainlogo.png" alt="H.O.P.E.">
+    <img class="site-logo" src="https://not.inouter.space/mainlogo.png" width="200" alt="H.O.P.E.">
